@@ -1,5 +1,8 @@
 .claude
 
+# Skill development workspaces
+*-workspace/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

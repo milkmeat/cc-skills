@@ -1,0 +1,20 @@
+{
+  "name": "cc-skills",
+  "owner": {
+    "name": "yingx"
+  },
+  "metadata": {
+    "description": "Custom Claude Code skills",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "commit-with-prompts",
+      "description": "Automatically saves user prompts to version control when making git commits, treating prompts as source code",
+      "source": "./",
+      "skills": [
+        "./commit-with-prompts"
+      ]
+    }
+  ]
+}

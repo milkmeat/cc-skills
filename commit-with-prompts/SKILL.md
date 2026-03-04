@@ -22,8 +22,9 @@ When the user asks to commit, execute these steps. The ordering matters because 
 Review the current conversation and collect **prompt units**. Each prompt unit consists of:
 
 1. **User prompt** (required) — the user's original message
-2. **Insight** (optional) — if your response to that prompt included a `★ Insight` section, capture its content
-3. **Affected files** (optional) — the files you created, modified, or deleted in response to that prompt
+2. **Context question** (optional) — if the user's message is an answer to a question you asked (e.g., choosing from options, answering a clarification question), include your original question text so the answer makes sense in isolation
+3. **Insight** (optional) — if your response to that prompt included a `★ Insight` section, capture its content
+4. **Affected files** (optional) — the files you created, modified, or deleted in response to that prompt
 
 **Scope rules:**
 - **First commit in session**: collect from the start of the conversation
@@ -82,17 +83,21 @@ If a file with the same name already exists, append `-2`, `-3`, etc.
 
 ### 2
 
-<user prompt text>
+> **Q:** <the question you asked that this prompt is answering>
 
-> **Insight**
-> <insight content>
+<user's answer>
 
 **Files:** `path/to/file3.py`
+
+### 3
+
+<user prompt text — a standalone instruction, no Q: needed>
 ```
 
 **Formatting rules:**
 - Each prompt unit is numbered sequentially
 - Preserve user prompt text faithfully — do not summarize, edit, or reformat the user's words
+- The **Q:** block provides context when the user's message is a response to a question you asked (e.g., choosing from options, answering a clarification). Use blockquote format (`> **Q:**`). Include the essential question text — you may condense multi-option questions to just the question line and the chosen option. If the user's message is a standalone instruction (not answering a question), omit the Q: block entirely.
 - The **Insight** block uses blockquote format (`>`). Only include it if your response to that prompt contained a `★ Insight` section. Copy the insight content faithfully. If there was no insight, omit the block entirely.
 - The **Files** line lists all files you created, modified, or deleted in response to that prompt, formatted as inline code. If a prompt didn't result in any file changes (e.g., a clarification question), omit the Files line.
 

@@ -28,13 +28,6 @@ Global config is written to `~/.claude/settings.json` and applies to all project
 
 ### Per-Project Install (current project only)
 
-```bash
-cd /path/to/your-project
-
-claude plugin marketplace add milkmeat/cc-skills
-claude plugin install commit-with-prompts@cc-skills
-```
-
 Per-project config is written to `<project>/.claude/settings.json` and can be committed to git for team sharing.
 
 ### Comparison

@@ -15,6 +15,14 @@
       "skills": [
         "./commit-with-prompts"
       ]
+    },
+    {
+      "name": "prompt-recap",
+      "description": "Reviews recent prompt history at session start to provide context about user focus areas, technical choices, and design decisions",
+      "source": "./",
+      "skills": [
+        "./prompt-recap"
+      ]
     }
   ]
 }

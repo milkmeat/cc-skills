@@ -17,11 +17,11 @@
       ]
     },
     {
-      "name": "prompt-recap",
-      "description": "Reviews recent prompt history at session start to provide context about user focus areas, technical choices, and design decisions",
+      "name": "recap",
+      "description": "Reviews recent prompt history to restore development context. Invoke with /recap to see what you've been working on.",
       "source": "./",
       "skills": [
-        "./prompt-recap"
+        "./recap"
       ]
     }
   ]

@@ -8,7 +8,7 @@ This repository provides two Claude Code skills that address this with a single 
 
 - **commit-with-prompts** — Preserves prompts in version control. Every time you commit, the prompts that drove those code changes are saved alongside them in `prompts/`. Prompts become first-class artifacts in your git history, not ephemeral chat messages.
 
-- **prompt-recap** — Loads prompt history at session start. When you begin a new session, recent prompt records are read, synthesized, and presented as a structured recap — so Claude already knows what you've been working on, what decisions were made, and why. No more cold starts.
+- **recap** — Loads prompt history on demand. Type `/recap` to read recent prompt records, synthesize them, and get a structured recap — so Claude knows what you've been working on, what decisions were made, and why. No more cold starts.
 
 One writes, the other reads. Together they make prompt history both **durable** (survives across sessions and machines) and **actionable** (automatically informs the next session).
 
@@ -32,7 +32,7 @@ claude plugin marketplace add milkmeat/cc-skills
 
 # 2. Install skills
 claude plugin install commit-with-prompts@cc-skills
-claude plugin install prompt-recap@cc-skills
+claude plugin install recap@cc-skills
 ```
 
 Global config is written to `~/.claude/settings.json` and applies to all projects on the machine.
@@ -138,19 +138,15 @@ If a filename already exists, `-2`, `-3`, etc. is appended.
 | `> **Insight**` block | Only when present | Captures the `★ Insight` section from Claude's response |
 | `**Files:**` line | Only when files changed | Lists files created, modified, or deleted in response to that prompt |
 
-### prompt-recap
+### recap
 
 #### How It Triggers
 
-`prompt-recap` is designed to run **at the start of every new Claude Code session**, before responding to the user's first message. To enable automatic activation, add the following to your project's `CLAUDE.md`:
-
-```
-At the start of each session, use the prompt-recap skill to review recent prompt history before responding to the user's first message.
-```
+Type `/recap` in any Claude Code session to load recent development context. No CLAUDE.md configuration needed.
 
 #### What Happens
 
-When a new session starts, the skill:
+When you invoke `/recap`, the skill:
 
 1. **Reads** the 3 most recent prompt record files from `prompts/` (sorted by filename, newest first)
 2. **Extracts** metadata (date, branch, commit message), user prompts, insights, and affected files from each record
@@ -189,17 +185,17 @@ If the `prompts/` directory doesn't exist or is empty, the skill outputs "No pro
 The two skills form a **write → read** loop:
 
 ```
-commit-with-prompts                    prompt-recap
-(writes on commit)                     (reads on session start)
+commit-with-prompts                    recap
+(writes on commit)                     (reads on /recap)
        │                                      │
        │   ┌──────────────────────┐           │
        └──►│  prompts/*.md files  │───────────┘
             └──────────────────────┘
 ```
 
-| | commit-with-prompts | prompt-recap |
+| | commit-with-prompts | recap |
 |---|---|---|
-| **When** | Every git commit | Every new session |
+| **When** | Every git commit | User types `/recap` |
 | **Action** | Saves user prompts + insights to `prompts/` | Reads recent records, synthesizes context |
 | **Purpose** | Preserve the "why" behind code changes | Eliminate cold starts in new sessions |
 
@@ -207,15 +203,10 @@ commit-with-prompts                    prompt-recap
 
 1. You work on a feature across multiple commits — each commit saves the prompts that drove it
 2. You close the session and come back later (or context resets)
-3. `prompt-recap` reads the recent prompt history and presents a recap
+3. You type `/recap` — the skill reads recent prompt history and presents a recap
 4. You choose "Continue" and Claude already knows what you've been working on, what decisions were made, and why
 
-**Setup for both skills** — add these lines to your project's `CLAUDE.md`:
-
-```
-When committing code, always use the commit-with-prompts skill to save user prompts alongside the commit.
-At the start of each session, use the prompt-recap skill to review recent prompt history before responding to the user's first message.
-```
+**No CLAUDE.md configuration needed** — both skills trigger automatically: `commit-with-prompts` activates on any commit request, and `recap` activates when you type `/recap`.
 
 ## Updating
 

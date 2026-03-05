@@ -1,22 +1,22 @@
 ---
-name: prompt-recap
+name: recap
 description: |
-  Reviews recent prompt history at the start of every new Claude Code session.
-  MUST be invoked at the beginning of each session, before responding to the user's first message.
+  Reviews recent prompt history to restore development context.
   Reads prompt record files from the prompts/ directory (created by commit-with-prompts),
   synthesizes key context (user focus areas, technical choices, design decisions),
   and asks the user whether to continue with this context or start fresh.
+  Invoke with /recap.
 ---
 
-# Prompt Recap
+# Recap
 
-Prompt records capture the intent, reasoning, and decisions behind every code change. This skill reads those records at session start, distills the recent development context, and presents it so both you and the user can pick up where things left off — no cold starts.
+Prompt records capture the intent, reasoning, and decisions behind every code change. This skill reads those records, distills the recent development context, and presents it so both you and the user can pick up where things left off — no cold starts.
 
-This skill is the **read** half of a closed loop: `commit-with-prompts` writes prompt records → `prompt-recap` reads them.
+This skill is the **read** half of a closed loop: `commit-with-prompts` writes prompt records → `recap` reads them.
 
 ## Workflow
 
-Execute these steps at the beginning of a new session, before responding to the user's first message.
+Execute these steps when the user invokes `/recap`.
 
 ### Step 1: Read Recent Prompt Records
 
@@ -95,10 +95,3 @@ After displaying the recap, use the **AskUserQuestion** tool to ask the user how
 - **Malformed files**: if a prompt record file doesn't follow the expected format, extract what you can and skip unparseable sections. Do not error out.
 - **Very large prompt files**: read the full content — do not truncate. The most valuable context is often in longer records.
 
-## Setup Recommendation
-
-For automatic activation at session start, add this line to the consuming project's `CLAUDE.md`:
-
-```
-At the start of each session, use the prompt-recap skill to review recent prompt history before responding to the user's first message.
-```

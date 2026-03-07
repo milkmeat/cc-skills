@@ -72,7 +72,7 @@ If a file with the same name already exists, append `-2`, `-3`, etc.
 
 ---
 
-### 1
+### 1. <short summary of this prompt>
 
 <user prompt text>
 
@@ -81,7 +81,7 @@ If a file with the same name already exists, append `-2`, `-3`, etc.
 
 **Files:** `path/to/file1.py`, `path/to/file2.js`
 
-### 2
+### 2. <short summary of this prompt>
 
 > **Q:** <the question you asked that this prompt is answering>
 
@@ -89,13 +89,13 @@ If a file with the same name already exists, append `-2`, `-3`, etc.
 
 **Files:** `path/to/file3.py`
 
-### 3
+### 3. <short summary of this prompt>
 
 <user prompt text — a standalone instruction, no Q: needed>
 ```
 
 **Formatting rules:**
-- Each prompt unit is numbered sequentially
+- Each prompt unit is numbered sequentially, with a short summary after the number (e.g., `### 1. Add workspace to gitignore`). The summary should be a concise phrase (not a full sentence) capturing what the user asked or decided in that prompt.
 - Preserve user prompt text faithfully — do not summarize, edit, or reformat the user's words
 - The **Q:** block provides context when the user's message is a response to a question you asked (e.g., choosing from options, answering a clarification). Use blockquote format (`> **Q:**`). Include the essential question text — you may condense multi-option questions to just the question line and the chosen option. If the user's message is a standalone instruction (not answering a question), omit the Q: block entirely.
 - The **Insight** block uses blockquote format (`>`). Only include it if your response to that prompt contained a `★ Insight` section. Copy the insight content faithfully. If there was no insight, omit the block entirely.

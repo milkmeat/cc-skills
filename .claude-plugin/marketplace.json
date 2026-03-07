@@ -15,6 +15,14 @@
       "skills": [
         "./commit-with-prompts"
       ]
+    },
+    {
+      "name": "recap",
+      "description": "Reviews recent prompt history to restore development context. Invoke with /recap to see what you've been working on.",
+      "source": "./",
+      "skills": [
+        "./recap"
+      ]
     }
   ]
 }

@@ -122,12 +122,3 @@ The topics summary should be a brief list of the main subjects discussed in the 
 - **Very long prompts**: preserve full text — do not truncate. Long prompts often contain the most valuable context.
 - **Non-ASCII branch names**: transliterate or replace non-ASCII characters with `-` in the filename
 
-## Setup Recommendation
-
-For the most reliable automatic triggering, add this line to the project's `CLAUDE.md`:
-
-```
-When committing code, always use the commit-with-prompts skill to save user prompts alongside the commit.
-```
-
-This ensures the skill activates on every commit, even when the user's request is phrased in an unusual way.
